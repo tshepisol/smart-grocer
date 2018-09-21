@@ -43,7 +43,7 @@ public class Customer {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "PARTNER_ID")
     private  Partner partner;
 
@@ -59,6 +59,10 @@ public class Customer {
             joinColumns = @JoinColumn(name = "CUSTOMER_ID"),
             inverseJoinColumns = @JoinColumn(name = "HAMPER_ID"))
     private List<Hamper> hampers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BankDetail> bankDetails = new ArrayList<>();
+
 
 
     public Long getId() {
@@ -163,5 +167,13 @@ public class Customer {
 
     public void setHampers(List<Hamper> hampers) {
         this.hampers = hampers;
+    }
+
+    public List<BankDetail> getBankDetails() {
+        return bankDetails;
+    }
+
+    public void setBankDetails(List<BankDetail> bankDetails) {
+        this.bankDetails = bankDetails;
     }
 }

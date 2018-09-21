@@ -1,6 +1,8 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -15,6 +17,9 @@ public class Partner {
     private PartnerType partnerType;
 
     private Integer referral;
+
+    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Customer> customers = new ArrayList<>();
 
 /*
     LEVEL_1, //10

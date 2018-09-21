@@ -25,6 +25,10 @@ public class BankDetail {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
     @OneToMany(mappedBy = "bankDetail", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PaymentHistory> paymentHistoryList = new ArrayList<>();
 
@@ -66,6 +70,15 @@ public class BankDetail {
 
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
+    }
+
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public List<PaymentHistory> getPaymentHistoryList() {
