@@ -3,6 +3,7 @@ package za.co.soma.solutions.smart.grocer.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.co.soma.solutions.smart.grocer.dao.CustomerRepository;
+import za.co.soma.solutions.smart.grocer.dao.RoleRepository;
 import za.co.soma.solutions.smart.grocer.domain.*;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class CustomerService {
 
     @Autowired
     CustomerNoGeneratorService customerNoGeneratorService;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     private static final String PREFIX_GROCER = "GR";
 
@@ -33,7 +37,7 @@ public class CustomerService {
 
     public Customer register(Customer customer){
 
-        createDefaulCustomer(customer);
+        createDefaultCustomer(customer);
 
         return customerRepository.save(customer);
     }
@@ -48,12 +52,11 @@ public class CustomerService {
     }
 
 
-    private void createDefaulCustomer(Customer customer){
+    private void createDefaultCustomer(Customer customer){
 
         customer.getUser().setCustomer(customer);
 
-        Role customerRole = new Role();
-        customerRole.setRoleType(RoleType.CUSTOMER);
+        Role customerRole = roleRepository.findByRoleType(RoleType.CUSTOMER);
         customer.getUser().getRoles().add(customerRole);
 
         int customerNo = customerNoGeneratorService.getCustomerNo();
