@@ -10,4 +10,11 @@ public class GrocerErrorType {
     public String getErrorMessage() {
         return errorMessage;
     }
+
+    @Override
+    public String toString() {
+        return "GrocerErrorType{" +
+                "errorMessage='" + errorMessage + '\'' +
+                '}';
+    }
 }

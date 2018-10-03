@@ -10,16 +10,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import za.co.soma.solutions.smart.grocer.Service.CustomerService;
+import za.co.soma.solutions.smart.grocer.Service.SomaValidation;
 import za.co.soma.solutions.smart.grocer.domain.Customer;
+import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 import za.co.soma.solutions.smart.grocer.exception.GrocerErrorType;
 
 import javax.validation.Valid;
+import javax.validation.Validator;
+import javax.validation.groups.Default;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
-public class CustomerController {
+public class CustomerController implements SomaValidation {
 
     public static  final Logger log = LoggerFactory.getLogger(CustomerController.class);
 
@@ -27,6 +31,10 @@ public class CustomerController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    Validator validator;
+
 
 
     @GetMapping
@@ -45,7 +53,7 @@ public class CustomerController {
 
         log.info("retrieve customer id: {}", customerId);
 
-        Optional<Customer> customerOptional = customerService.get(customerId);
+        Optional<Customer> customerOptional = customerService.retrieve(customerId);
 
         if(customerOptional.isPresent()){
             return new ResponseEntity(customerOptional.get(), HttpStatus.OK);
@@ -58,16 +66,22 @@ public class CustomerController {
 
 
     @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody Customer customer, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<?> create(@RequestBody Customer customer, UriComponentsBuilder uriComponentsBuilder){
 
         log.info("creating customer: {}", customer);
 
-        if(customer.getId() != null && customerService.get(customer.getId()).isPresent()){
+        if(customer.getId() != null && customerService.retrieve(customer.getId()).isPresent()){
             log.warn("unable to save customer. customer already exist: {}", customer);
             return new ResponseEntity(new GrocerErrorType("Unable to create. customer exist: "+ customer), HttpStatus.BAD_REQUEST);
         }
 
-        customer = customerService.save(customer);
+        GrocerErrorType grocerErrorType = validate(validator, customer, Registration.class);
+        if(grocerErrorType != null){
+            log.warn("unable to save customer. validation failed: {}", customer);
+            return new ResponseEntity(grocerErrorType, HttpStatus.BAD_REQUEST);
+        }
+
+        customer = customerService.register(customer);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setLocation(uriComponentsBuilder.path("/customer/{id}").buildAndExpand(customer.getId()).toUri());
@@ -81,7 +95,7 @@ public class CustomerController {
 
         log.info("update customer: {}", customer);
 
-        if(customer.getId() == null && !customerService.get(customer.getId()).isPresent()){
+        if(customer.getId() == null && !customerService.retrieve(customer.getId()).isPresent()){
             log.warn("unable to update customer. customer doesnt exist: {}", customer);
             return new ResponseEntity(new GrocerErrorType("Unable to update. customer doesnt exist: "+ customer), HttpStatus.BAD_REQUEST);
         }
@@ -96,7 +110,7 @@ public class CustomerController {
 
         log.info("delete customer: {}", customerId);
 
-        if(customerId == null && customerService.get(customerId).isPresent()){
+        if(customerId == null && customerService.retrieve(customerId).isPresent()){
             log.warn("unable to delete customer. customer doesnt exist: {}", customerId);
             throw new RuntimeException("Unable to delete. customer doesnt exist: "+ customerId);
         }

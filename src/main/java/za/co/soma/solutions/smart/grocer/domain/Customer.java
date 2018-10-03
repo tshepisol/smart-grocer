@@ -1,10 +1,12 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
 
+import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
+
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+import javax.validation.groups.Default;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,30 +38,39 @@ public class Customer {
     private String emailAdress;
 
     @OneToOne(optional = true)
-    @JoinColumn(name = "CUSTOMER_REFERRAL_ID")
+    @JoinColumn(name = "CUSTOMER_REFERRAL_ID", updatable = false)
     private Customer customerReferral;
 
-    @OneToOne
-    @JoinColumn(name = "USER_ID")
+    @Valid
+    @NotNull(message = "User cannot be NULL", groups = {Registration.class, Default.class})
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "PARTNER_ID")
+    @JoinColumn(name = "PARTNER_ID", updatable = false, insertable = false)
     private  Partner partner;
 
+
+    @Valid
+    @Size(min = 1, message = "Customer Contact cannot be empty", groups = {Registration.class, Default.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomerContact> customerContacts = new ArrayList<>();
 
+    @Valid
+    @Size(min = 1, message = "Customer Address cannot be empty", groups = {Registration.class, Default.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomerAddress> customerAddresses = new ArrayList<>();
 
 
     @ManyToMany
     @JoinTable(name = "CUSTOMER_HAMPER",
-            joinColumns = @JoinColumn(name = "CUSTOMER_ID"),
+            joinColumns = @JoinColumn(name = "CUSTOMER_ID", updatable = false, insertable = false),
             inverseJoinColumns = @JoinColumn(name = "HAMPER_ID"))
     private List<Hamper> hampers = new ArrayList<>();
 
+    @Valid
+    @NotNull(message = "Bank Details required", groups = {Registration.class, Default.class})
+    @Size(min = 1, message = "BankDetails cannot be empty", groups = {Registration.class, Default.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BankDetail> bankDetails = new ArrayList<>();
 

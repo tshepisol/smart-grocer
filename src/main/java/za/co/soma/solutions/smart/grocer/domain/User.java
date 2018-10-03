@@ -1,7 +1,13 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
 
+import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,15 +26,18 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @NotNull(message = "Username name Required", groups = {Registration.class, Default.class})
     private String username;
 
+    @NotNull(message = "Password Required", groups = {Registration.class, Default.class})
     private String password;
 
-    private int retryCount;
+    private int retryCount = 0;
 
-    private boolean locked;
+    private boolean locked = false;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne
+    @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
     @Column(nullable = false, updatable = false)
@@ -38,10 +47,12 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
 
-    @ManyToMany
+
+    @Size(message = "Role must be empty", groups = Registration.class)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLE",
         joinColumns = @JoinColumn(name = "USER_ID"),
-        inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+        inverseJoinColumns = @JoinColumn(name = "ROLE_ID", updatable = false, insertable = false))
     private List<Role> roles = new ArrayList<>();
 
 

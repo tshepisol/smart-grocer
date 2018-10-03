@@ -1,7 +1,11 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
+import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
+
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
 
 @Entity
 @Table(name = "CUSTOMER_CONTACT")
@@ -11,7 +15,7 @@ public class CustomerContact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @NotNull(message = "Contact Number cannot be empty", groups = {Registration.class, Default.class})
     @Digits(integer = 10, fraction = 0, message = "Phone number invalid")
     private String number;
 

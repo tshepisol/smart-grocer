@@ -21,7 +21,7 @@ public class CustomerAddress {
     @Enumerated(EnumType.STRING)
     private ProvinceType province;
 
-    private Integer postalCode;
+    private String postalCode;
 
     @Enumerated(EnumType.STRING)
     private  AddressType addressType;
@@ -71,11 +71,11 @@ public class CustomerAddress {
         this.province = province;
     }
 
-    public Integer getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(Integer postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
