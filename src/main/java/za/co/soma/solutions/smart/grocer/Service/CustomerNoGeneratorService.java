@@ -17,9 +17,10 @@ public class CustomerNoGeneratorService {
     public int getCustomerNo(){
 
         List<CustomerNo>  customerNos = customerNoRepository.findAll();
-        customerNoRepository.save(customerNos.get(0));
+        customerNos.get(0).increment();
+        CustomerNo customerNo = customerNoRepository.save(customerNos.get(0));
         customerNoRepository.flush();
 
-        return customerNos.get(0).getCustomerNumber();
+        return customerNo.getCustomerNumber();
     }
 }

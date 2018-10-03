@@ -1,5 +1,6 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.validation.groups.Default;
 
 @Entity
 @Table(name = "CUSTOMER_CONTACT")
+@DynamicUpdate
 public class CustomerContact {
 
     @Id

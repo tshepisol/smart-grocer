@@ -1,6 +1,7 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
 
+import org.hibernate.annotations.DynamicUpdate;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "USER")
+@DynamicUpdate
 public class User {
 
 
@@ -49,7 +51,7 @@ public class User {
 
 
     @Size(message = "Role must be empty", groups = Registration.class)
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(name = "USER_ROLE",
         joinColumns = @JoinColumn(name = "USER_ID"),
         inverseJoinColumns = @JoinColumn(name = "ROLE_ID", updatable = false, insertable = false))

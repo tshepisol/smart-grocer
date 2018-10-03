@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 import za.co.soma.solutions.smart.grocer.Application;
+import za.co.soma.solutions.smart.grocer.dao.HamperRepository;
 import za.co.soma.solutions.smart.grocer.domain.*;
 import za.co.soma.solutions.smart.grocer.exception.GrocerErrorType;
 
@@ -27,6 +28,9 @@ public class CustomerControllerTest {
     CustomerController customerController;
 
     UriComponentsBuilder uriComponentsBuilder;
+
+    @Autowired
+    HamperRepository hamperRepository;
 
     @Before
     public void init(){
@@ -85,6 +89,13 @@ public class CustomerControllerTest {
         customerContact.setContactType(ContactType.MOBILE);
         customerContact.setNumber("0795262301");
         customer.getCustomerContacts().add(customerContact);
+
+        CustomerHamper customerHamper = new CustomerHamper();
+        customerHamper.setCustomer(customer);
+
+        Hamper hamper = hamperRepository.findByName("Grocery hamper");
+        customerHamper.setHamper(hamper);
+        customer.getCustomerHampers().add(customerHamper);
 
 
 

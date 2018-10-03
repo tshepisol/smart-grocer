@@ -1,10 +1,13 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "CUSTOMER_ADDRESS")
+@DynamicUpdate
 public class CustomerAddress {
 
     @Id

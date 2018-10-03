@@ -23,8 +23,8 @@ public class Hamper {
     @JoinColumn(name = "VENDOR_ID", updatable = false, insertable = false)
     private Vendor vendor;
 
-    @ManyToMany(mappedBy = "hampers")
-    private List<Customer> customers = new ArrayList<>();
+    @OneToMany(mappedBy = "hamper")
+    private List<CustomerHamper> customerHampers = new ArrayList<>();
 
 
 
@@ -54,11 +54,11 @@ public class Hamper {
         this.vendor = vendor;
     }
 
-    public List<Customer> getCustomers() {
-        return customers;
+    public List<CustomerHamper> getCustomerHampers() {
+        return customerHampers;
     }
 
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
+    public void setCustomerHampers(List<CustomerHamper> customerHampers) {
+        this.customerHampers = customerHampers;
     }
 }

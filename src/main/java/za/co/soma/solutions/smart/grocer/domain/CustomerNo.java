@@ -18,8 +18,7 @@ public class CustomerNo {
     }
 
 
-    @PreUpdate
-    public void update(){
+    public void increment(){
         customerNumber++;
     }
 

@@ -1,6 +1,7 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
 
+import org.hibernate.annotations.DynamicUpdate;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "CUSTOMER")
+@DynamicUpdate
 public class Customer {
 
     @Id
@@ -35,7 +37,7 @@ public class Customer {
     private String IdNumber;
 
     @Email(message = "Email Address invalid")
-    private String emailAdress;
+    private String emailAddress;
 
     @OneToOne(optional = true)
     @JoinColumn(name = "CUSTOMER_REFERRAL_ID", updatable = false)
@@ -62,11 +64,10 @@ public class Customer {
     private List<CustomerAddress> customerAddresses = new ArrayList<>();
 
 
-    @ManyToMany
-    @JoinTable(name = "CUSTOMER_HAMPER",
-            joinColumns = @JoinColumn(name = "CUSTOMER_ID", updatable = false, insertable = false),
-            inverseJoinColumns = @JoinColumn(name = "HAMPER_ID"))
-    private List<Hamper> hampers = new ArrayList<>();
+    @Valid
+    @Size(min = 1, message = "Hamper cannot be empty", groups = {Registration.class, Default.class})
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CustomerHamper> customerHampers = new ArrayList<>();
 
     @Valid
     @NotNull(message = "Bank Details required", groups = {Registration.class, Default.class})
@@ -124,12 +125,12 @@ public class Customer {
         IdNumber = idNumber;
     }
 
-    public String getEmailAdress() {
-        return emailAdress;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setEmailAdress(String emailAdress) {
-        this.emailAdress = emailAdress;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public Customer getCustomerReferral() {
@@ -172,12 +173,12 @@ public class Customer {
         this.customerAddresses = customerAddresses;
     }
 
-    public List<Hamper> getHampers() {
-        return hampers;
+    public List<CustomerHamper> getCustomerHampers() {
+        return customerHampers;
     }
 
-    public void setHampers(List<Hamper> hampers) {
-        this.hampers = hampers;
+    public void setCustomerHampers(List<CustomerHamper> customerHampers) {
+        this.customerHampers = customerHampers;
     }
 
     public List<BankDetail> getBankDetails() {

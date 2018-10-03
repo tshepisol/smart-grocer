@@ -1,5 +1,6 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Range;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "BANK_DETAIL")
+@DynamicUpdate
 public class BankDetail {
 
     @Id
