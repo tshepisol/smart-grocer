@@ -23,7 +23,7 @@ public class Hamper {
     @JoinColumn(name = "VENDOR_ID", updatable = false, insertable = false)
     private Vendor vendor;
 
-    @OneToMany(mappedBy = "hamper")
+    @OneToMany(mappedBy = "hamper",  cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomerHamper> customerHampers = new ArrayList<>();
 
 

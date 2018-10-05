@@ -7,6 +7,6 @@ import za.co.soma.solutions.smart.grocer.Service.SomaValidation;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
-@RequestMapping("/partner")
-public class PartnerController implements SomaValidation {
+@RequestMapping("/user")
+public class UserController implements SomaValidation {
 }

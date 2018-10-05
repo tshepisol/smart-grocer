@@ -17,17 +17,15 @@ import za.co.soma.solutions.smart.grocer.exception.GrocerErrorType;
 
 import javax.validation.Valid;
 import javax.validation.Validator;
-import javax.validation.groups.Default;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/customer")
 public class CustomerController implements SomaValidation {
 
     public static  final Logger log = LoggerFactory.getLogger(CustomerController.class);
-
-
 
     @Autowired
     CustomerService customerService;
