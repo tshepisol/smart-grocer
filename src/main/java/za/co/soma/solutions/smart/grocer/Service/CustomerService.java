@@ -25,13 +25,12 @@ public class CustomerService {
 
 
     public Optional<Customer> retrieve(Long customerId){
-
         return  customerRepository.findById(customerId);
     }
 
 
     public List<Customer> getAll(){
-        return  null;
+        return  customerRepository.findAll();
     }
 
 
@@ -43,12 +42,12 @@ public class CustomerService {
     }
 
     public Customer update(Customer customer){
-        return null;
+        return customerRepository.save(customer);
     }
 
 
-    public Customer delete(Long customerId){
-        return null;
+    public void delete(Long customerId){
+        customerRepository.deleteById(customerId);
     }
 
 
@@ -56,7 +55,7 @@ public class CustomerService {
 
         customer.getUser().setCustomer(customer);
 
-        Role customerRole = roleRepository.findByRoleType(RoleType.CUSTOMER);
+        Role customerRole = roleRepository.findByRoleName(RoleName.CUSTOMER);
         customer.getUser().getRoles().add(customerRole);
 
         int customerNo = customerNoGeneratorService.getCustomerNo();

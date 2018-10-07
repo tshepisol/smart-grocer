@@ -1,5 +1,6 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "CUSTOMER_HAMPER")
 @DynamicUpdate
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class CustomerHamper {
 
     @Id
@@ -18,6 +20,7 @@ public class CustomerHamper {
     @NotNull(message = "Customer required - Customer Hamper mapping")
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
+    @JsonBackReference
     private Customer customer;
 
 

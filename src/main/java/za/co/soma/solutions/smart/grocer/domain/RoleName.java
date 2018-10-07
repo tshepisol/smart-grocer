@@ -1,6 +1,6 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
-public enum RoleType {
+public enum RoleName {
     ADMIN,
     CUSTOMER,
     CLERK

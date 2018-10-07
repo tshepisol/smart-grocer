@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,7 +23,7 @@ import java.util.Optional;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
-@RequestMapping("/customer")
+@RequestMapping(value = "/customer", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class CustomerController implements SomaValidation {
 
     public static  final Logger log = LoggerFactory.getLogger(CustomerController.class);

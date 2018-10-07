@@ -1,12 +1,16 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.DynamicUpdate;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "CUSTOMER")
 @DynamicUpdate
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Customer {
 
     @Id
@@ -67,6 +72,7 @@ public class Customer {
     @Valid
     @Size(min = 1, message = "Hamper cannot be empty", groups = {Registration.class, Default.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<CustomerHamper> customerHampers = new ArrayList<>();
 
     @Valid

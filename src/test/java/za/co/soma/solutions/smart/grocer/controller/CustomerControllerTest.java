@@ -93,7 +93,7 @@ public class CustomerControllerTest {
         CustomerHamper customerHamper = new CustomerHamper();
         customerHamper.setCustomer(customer);
 
-        Hamper hamper = hamperRepository.findByName("Grocery hamper");
+        Hamper hamper = hamperRepository.findByName("Makro special - Grocery hamper");
         customerHamper.setHamper(hamper);
         customer.getCustomerHampers().add(customerHamper);
 
