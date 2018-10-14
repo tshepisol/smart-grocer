@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
-@RequestMapping(value = "/customer", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/customer")
 public class CustomerController implements SomaValidation {
 
     public static  final Logger log = LoggerFactory.getLogger(CustomerController.class);

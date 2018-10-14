@@ -1,7 +1,9 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.DynamicUpdate;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 
@@ -18,7 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "CUSTOMER")
 @DynamicUpdate
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Customer {
 
     @Id
@@ -34,8 +36,8 @@ public class Customer {
     @NotNull(message = "Last name cannot be empty")
     private String lastName;
 
-    @Enumerated(EnumType.STRING)
-    private GenderType gender;
+   /* @Enumerated(EnumType.STRING)
+    private GenderType gender;*/
 
     @NotNull(message = "ID number cannot be empty")
     @Digits(integer = 13, fraction = 0, message = "ID Number invalid")
@@ -59,15 +61,15 @@ public class Customer {
 
 
     @Valid
-    @Size(min = 1, message = "Customer Contact cannot be empty", groups = {Registration.class, Default.class})
+   // @Size(min = 1, message = "Customer Contact cannot be empty", groups = {Registration.class, Default.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomerContact> customerContacts = new ArrayList<>();
 
-    @Valid
+    /*@Valid
     @Size(min = 1, message = "Customer Address cannot be empty", groups = {Registration.class, Default.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomerAddress> customerAddresses = new ArrayList<>();
-
+*/
 
     @Valid
     @Size(min = 1, message = "Hamper cannot be empty", groups = {Registration.class, Default.class})
@@ -76,8 +78,8 @@ public class Customer {
     private List<CustomerHamper> customerHampers = new ArrayList<>();
 
     @Valid
-    @NotNull(message = "Bank Details required", groups = {Registration.class, Default.class})
-    @Size(min = 1, message = "BankDetails cannot be empty", groups = {Registration.class, Default.class})
+  //  @NotNull(message = "Bank Details required", groups = {Registration.class, Default.class})
+   // @Size(min = 1, message = "BankDetails cannot be empty", groups = {Registration.class, Default.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BankDetail> bankDetails = new ArrayList<>();
 
@@ -113,14 +115,6 @@ public class Customer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public GenderType getGender() {
-        return gender;
-    }
-
-    public void setGender(GenderType gender) {
-        this.gender = gender;
     }
 
     public String getIdNumber() {
@@ -169,14 +163,6 @@ public class Customer {
 
     public void setCustomerContacts(List<CustomerContact> customerContacts) {
         this.customerContacts = customerContacts;
-    }
-
-    public List<CustomerAddress> getCustomerAddresses() {
-        return customerAddresses;
-    }
-
-    public void setCustomerAddresses(List<CustomerAddress> customerAddresses) {
-        this.customerAddresses = customerAddresses;
     }
 
     public List<CustomerHamper> getCustomerHampers() {

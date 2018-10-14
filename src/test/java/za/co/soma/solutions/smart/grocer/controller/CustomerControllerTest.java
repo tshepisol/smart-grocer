@@ -76,7 +76,7 @@ public class CustomerControllerTest {
         customerAddress.setTown("Rooihuiskraal North");
         customerAddress.setAddressType(AddressType.POSTAL);
         customerAddress.setPostalCode("0182");
-        customer.getCustomerAddresses().add(customerAddress);
+       // customer.getCustomerAddresses().add(customerAddress);
 
         BankDetail bankDetail = new BankDetail();
         bankDetail.setAccountnumber(1223344445L);
