@@ -1,5 +1,8 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Range;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
@@ -17,6 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "BANK_DETAIL")
 @DynamicUpdate
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class BankDetail {
 
     @Id
@@ -40,6 +44,7 @@ public class BankDetail {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private Customer customer;
 
     @Valid

@@ -18,7 +18,7 @@ public class SmartGrocerCustomerIT {
 
         Customer customer = createCustomer();
         RestTemplate restTemplate = new RestTemplate();
-        URI uri = restTemplate.postForLocation(postCustomerURL, customer, Customer.class);
+        URI uri = restTemplate.postForLocation(postCustomerLocal, customer, Customer.class);
 
         Assert.assertNotNull(uri.toASCIIString());
 
@@ -47,7 +47,8 @@ public class SmartGrocerCustomerIT {
         customerAddress.setTown("Rooihuiskraal North");
         customerAddress.setAddressType(AddressType.POSTAL);
         customerAddress.setPostalCode("0182");
-        //customer.getCustomerAddresses().add(customerAddress);
+        customer.getCustomerAddresses().add(customerAddress);
+        customerAddress.setCustomer(customer);
 
         BankDetail bankDetail = new BankDetail();
         bankDetail.setAccountnumber(new Long (new Random().nextInt(99999999)));

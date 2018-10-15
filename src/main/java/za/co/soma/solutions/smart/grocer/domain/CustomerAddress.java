@@ -1,5 +1,8 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -8,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "CUSTOMER_ADDRESS")
 @DynamicUpdate
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class CustomerAddress {
 
     @Id
@@ -32,6 +36,7 @@ public class CustomerAddress {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private Customer customer;
 
     public Long getId() {

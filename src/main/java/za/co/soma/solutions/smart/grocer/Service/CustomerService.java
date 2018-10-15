@@ -61,6 +61,22 @@ public class CustomerService {
         int customerNo = customerNoGeneratorService.getCustomerNo();
         System.out.println("Customer NO:"+customer);
         customer.setCustomerNo(PREFIX_GROCER + customerNo);
+
+        customer.getCustomerAddresses().stream().forEach(customerAddress -> {
+            if(customerAddress.getCustomer() == null)
+                customerAddress.setCustomer(customer);
+        });
+
+        customer.getCustomerContacts().stream().forEach(customerContact -> {
+            if(customerContact.getCustomer() == null)
+                customerContact.setCustomer(customer);
+        });
+
+        customer.getBankDetails().stream().forEach(bankDetail -> {
+            if(bankDetail.getCustomer() == null)
+                bankDetail.setCustomer(customer);
+        });
+
     }
 
 }

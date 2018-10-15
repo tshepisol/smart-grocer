@@ -63,13 +63,15 @@ public class Customer {
     @Valid
    // @Size(min = 1, message = "Customer Contact cannot be empty", groups = {Registration.class, Default.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<CustomerContact> customerContacts = new ArrayList<>();
 
-    /*@Valid
-    @Size(min = 1, message = "Customer Address cannot be empty", groups = {Registration.class, Default.class})
+    //@Valid
+    //@Size(min = 1, message = "Customer Address cannot be empty", groups = {Registration.class, Default.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<CustomerAddress> customerAddresses = new ArrayList<>();
-*/
+
 
     @Valid
     @Size(min = 1, message = "Hamper cannot be empty", groups = {Registration.class, Default.class})
@@ -81,6 +83,7 @@ public class Customer {
   //  @NotNull(message = "Bank Details required", groups = {Registration.class, Default.class})
    // @Size(min = 1, message = "BankDetails cannot be empty", groups = {Registration.class, Default.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<BankDetail> bankDetails = new ArrayList<>();
 
 
@@ -163,6 +166,14 @@ public class Customer {
 
     public void setCustomerContacts(List<CustomerContact> customerContacts) {
         this.customerContacts = customerContacts;
+    }
+
+    public List<CustomerAddress> getCustomerAddresses() {
+        return customerAddresses;
+    }
+
+    public void setCustomerAddresses(List<CustomerAddress> customerAddresses) {
+        this.customerAddresses = customerAddresses;
     }
 
     public List<CustomerHamper> getCustomerHampers() {
