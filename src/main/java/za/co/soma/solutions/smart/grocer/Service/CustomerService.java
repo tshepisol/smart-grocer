@@ -1,6 +1,7 @@
 package za.co.soma.solutions.smart.grocer.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import za.co.soma.solutions.smart.grocer.dao.CustomerRepository;
 import za.co.soma.solutions.smart.grocer.dao.RoleRepository;
@@ -21,6 +22,10 @@ public class CustomerService {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
     private static final String PREFIX_GROCER = "GR";
 
 
@@ -34,7 +39,7 @@ public class CustomerService {
     }
 
 
-    public Customer register(Customer customer){
+    public Customer create(Customer customer){
 
         createDefaultCustomer(customer);
 
@@ -54,6 +59,7 @@ public class CustomerService {
     private void createDefaultCustomer(Customer customer){
 
         customer.getUser().setCustomer(customer);
+        encryptPassword(customer.getUser());
 
         Role customerRole = roleRepository.findByRoleName(RoleName.CUSTOMER);
         customer.getUser().getRoles().add(customerRole);
@@ -77,6 +83,10 @@ public class CustomerService {
                 bankDetail.setCustomer(customer);
         });
 
+    }
+
+    private void encryptPassword(User user){
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     }
 
 }

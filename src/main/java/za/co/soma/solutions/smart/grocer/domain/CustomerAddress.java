@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "CUSTOMER_ADDRESS")
 @DynamicUpdate
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = CustomerAddress.class, property = "id")
 public class CustomerAddress {
 
     @Id

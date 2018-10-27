@@ -4,16 +4,12 @@ package za.co.soma.solutions.smart.grocer.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 import za.co.soma.solutions.smart.grocer.Service.CustomerService;
 import za.co.soma.solutions.smart.grocer.Service.SomaValidation;
 import za.co.soma.solutions.smart.grocer.domain.Customer;
-import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 import za.co.soma.solutions.smart.grocer.exception.GrocerErrorType;
 
 import javax.validation.Valid;
@@ -62,32 +58,6 @@ public class CustomerController implements SomaValidation {
 
         return new ResponseEntity(new GrocerErrorType("Customer with id "+customerId+" not found"), HttpStatus.NOT_FOUND);
     }
-
-
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody Customer customer, UriComponentsBuilder uriComponentsBuilder){
-
-        log.info("creating customer: {}", customer);
-
-        if(customer.getId() != null && customerService.retrieve(customer.getId()).isPresent()){
-            log.warn("unable to save customer. customer already exist: {}", customer);
-            return new ResponseEntity(new GrocerErrorType("Unable to create. customer exist: "+ customer), HttpStatus.BAD_REQUEST);
-        }
-
-        GrocerErrorType grocerErrorType = validate(validator, customer, Registration.class);
-        if(grocerErrorType != null){
-            log.warn("unable to save customer. validation failed: {}", customer);
-            return new ResponseEntity(grocerErrorType, HttpStatus.BAD_REQUEST);
-        }
-
-        customer = customerService.register(customer);
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setLocation(uriComponentsBuilder.path("/customer/{id}").buildAndExpand(customer.getId()).toUri());
-
-        return new ResponseEntity<String>(httpHeaders, HttpStatus.CREATED);
-    }
-
 
     @PutMapping
     public ResponseEntity<?> update(@Valid @RequestBody Customer customer){

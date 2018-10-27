@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,6 @@ import za.co.soma.solutions.smart.grocer.domain.*;
 import za.co.soma.solutions.smart.grocer.exception.GrocerErrorType;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.eq;
 
 @RunWith(SpringRunner.class)
@@ -25,7 +23,7 @@ import static org.mockito.Matchers.eq;
 public class CustomerControllerTest {
 
     @Autowired
-    CustomerController customerController;
+    RegisterController registerController;
 
     UriComponentsBuilder uriComponentsBuilder;
 
@@ -42,7 +40,7 @@ public class CustomerControllerTest {
 
         Customer customer = createCustomer();
         uriComponentsBuilder = ServletUriComponentsBuilder.fromCurrentRequestUri();
-        ResponseEntity responseEntity = customerController.create(customer, uriComponentsBuilder);
+        ResponseEntity responseEntity = registerController.register(customer);
 
         Object payload  = responseEntity.getBody();
 

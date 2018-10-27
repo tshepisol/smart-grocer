@@ -51,7 +51,7 @@ public class User {
 
 
     @Size(message = "Role must be empty", groups = Registration.class)
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ROLE",
         joinColumns = @JoinColumn(name = "USER_ID"),
         inverseJoinColumns = @JoinColumn(name = "ROLE_ID", updatable = false, insertable = false))

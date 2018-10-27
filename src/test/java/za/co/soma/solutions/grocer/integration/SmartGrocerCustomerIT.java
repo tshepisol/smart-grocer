@@ -10,19 +10,19 @@ import java.util.Random;
 
 public class SmartGrocerCustomerIT {
 
-    private String postCustomerURL = "http://35.242.165.19/customer";
-    private String postCustomerLocal = "http://localhost:8080/customer";
+    private String remote = "http://35.242.165.19/register";
+    private String local = "http://localhost:8080/register";
 
     @Test
     public void register(){
 
         Customer customer = createCustomer();
         RestTemplate restTemplate = new RestTemplate();
-        URI uri = restTemplate.postForLocation(postCustomerLocal, customer, Customer.class);
+        customer = restTemplate.postForObject(remote, customer, Customer.class);
 
-        Assert.assertNotNull(uri.toASCIIString());
+        Assert.assertNotNull(customer.getId());
 
-        System.out.println("URL to retrieve Customer:"+uri.toASCIIString());
+        System.out.println("URL to retrieve Customer:"+customer.getId());
     }
 
     @Test

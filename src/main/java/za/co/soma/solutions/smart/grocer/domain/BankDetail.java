@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "BANK_DETAIL")
 @DynamicUpdate
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = BankDetail.class, property = "accountnumber")
 public class BankDetail {
 
     @Id

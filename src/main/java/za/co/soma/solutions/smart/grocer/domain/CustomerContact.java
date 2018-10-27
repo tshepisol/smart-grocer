@@ -14,7 +14,7 @@ import javax.validation.groups.Default;
 @Entity
 @Table(name = "CUSTOMER_CONTACT")
 @DynamicUpdate
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = CustomerContact.class, property = "id")
 public class CustomerContact {
 
     @Id
