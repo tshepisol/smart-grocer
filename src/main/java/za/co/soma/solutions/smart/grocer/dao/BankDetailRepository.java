@@ -5,5 +5,6 @@ import za.co.soma.solutions.smart.grocer.domain.BankDetail;
 
 public interface BankDetailRepository extends JpaRepository<BankDetail, Long> {
 
-    
+    BankDetail findByCustomerId(Long customerId);
+
 }

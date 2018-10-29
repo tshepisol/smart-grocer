@@ -35,13 +35,13 @@ public class RegisterController implements SomaValidation {
 
         if(customer.getId() != null && customerService.retrieve(customer.getId()).isPresent()){
             log.warn("unable to register customer. customer already exist: {}", customer);
-            return new ResponseEntity(new GrocerErrorType("Unable to create. customer exist: "+ customer), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new GrocerErrorType("Unable to create. customer exist: "+ customer), HttpStatus.OK);
         }
 
         GrocerErrorType grocerErrorType = validate(validator, customer, Registration.class);
         if(grocerErrorType != null){
             log.warn("unable to save customer. validation failed: {}", customer);
-            return new ResponseEntity(grocerErrorType, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(grocerErrorType, HttpStatus.OK);
         }
 
         customer = customerService.create(customer);

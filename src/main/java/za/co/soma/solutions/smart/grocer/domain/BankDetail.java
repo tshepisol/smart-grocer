@@ -10,8 +10,6 @@ import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +18,12 @@ import java.util.List;
 @Entity
 @Table(name = "BANK_DETAIL")
 @DynamicUpdate
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = BankDetail.class, property = "accountnumber")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = BankDetail.class, property = "accountNumber")
 public class BankDetail {
 
     @Id
     @NotNull(message = "Account NUmber cannot be empty", groups = {Registration.class, Default.class})
-    private Long accountnumber;
+    private Long accountNumber;
 
     @Enumerated
     @NotNull(message = "Bank cannot be empty", groups = {Registration.class, Default.class})
@@ -42,22 +40,22 @@ public class BankDetail {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     @JsonBackReference
     private Customer customer;
 
     @Valid
-    @Null(message = "Payment History must be NULL", groups = Registration.class)
+   // @Size(max = 0, message = "Payment History must be EMPTY", groups = Registration.class)
     @OneToMany(mappedBy = "bankDetail", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PaymentHistory> paymentHistoryList;
+    private List<PaymentHistory> paymentHistoryList = new ArrayList<>();
 
-    public Long getAccountnumber() {
-        return accountnumber;
+    public Long getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setAccountnumber(Long accountnumber) {
-        this.accountnumber = accountnumber;
+    public void setAccountNumber(Long accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public BankType getBank() {

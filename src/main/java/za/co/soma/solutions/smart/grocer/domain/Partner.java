@@ -18,8 +18,9 @@ public class Partner {
 
     private Integer referral;
 
-    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Customer> customers = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "CUSTOMER_ID")
+    private Customer customer;
 
 /*
     LEVEL_1, //10
@@ -57,5 +58,13 @@ public class Partner {
 
     public void setReferral(Integer referral) {
         this.referral = referral;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

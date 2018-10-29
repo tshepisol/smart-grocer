@@ -5,7 +5,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import za.co.soma.solutions.smart.grocer.dao.CustomerRepository;
 import za.co.soma.solutions.smart.grocer.dao.RoleRepository;
-import za.co.soma.solutions.smart.grocer.domain.*;
+import za.co.soma.solutions.smart.grocer.domain.Customer;
+import za.co.soma.solutions.smart.grocer.domain.Role;
+import za.co.soma.solutions.smart.grocer.domain.RoleName;
+import za.co.soma.solutions.smart.grocer.domain.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +30,7 @@ public class CustomerService {
 
 
     private static final String PREFIX_GROCER = "GR";
+
 
 
     public Optional<Customer> retrieve(Long customerId){
@@ -61,6 +65,8 @@ public class CustomerService {
         customer.getUser().setCustomer(customer);
         encryptPassword(customer.getUser());
 
+        customerReferral(customer);
+
         Role customerRole = roleRepository.findByRoleName(RoleName.CUSTOMER);
         customer.getUser().getRoles().add(customerRole);
 
@@ -83,6 +89,20 @@ public class CustomerService {
                 bankDetail.setCustomer(customer);
         });
 
+    }
+
+    private void customerReferral(Customer customer){
+        if(customer.getCustomerReferral() != null ) {
+            Optional<Customer> customerReferredOptional = customerRepository.findById(customer.getCustomerReferral().getId());
+            if(customerReferredOptional.isPresent())
+                customer.setCustomerReferral(customerReferredOptional.get());
+            else
+                customer.setCustomerReferral(null);
+        }
+    }
+
+    public List<Customer> referrals(Long customerId){
+       return customerRepository.getCustomersByCustomerReferralId(customerId);
     }
 
     private void encryptPassword(User user){

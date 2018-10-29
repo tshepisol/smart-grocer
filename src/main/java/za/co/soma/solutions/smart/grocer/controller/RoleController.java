@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import za.co.soma.solutions.smart.grocer.Service.RoleService;
+import za.co.soma.solutions.smart.grocer.security.service.RoleService;
 import za.co.soma.solutions.smart.grocer.Service.SomaValidation;
 import za.co.soma.solutions.smart.grocer.domain.Role;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;

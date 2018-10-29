@@ -1,6 +1,7 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "HAMPER")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = Hamper.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, scope = Hamper.class, property = "@id")
 public class Hamper {
 
     @Id

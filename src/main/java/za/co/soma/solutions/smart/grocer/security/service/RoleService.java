@@ -1,4 +1,4 @@
-package za.co.soma.solutions.smart.grocer.Service;
+package za.co.soma.solutions.smart.grocer.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

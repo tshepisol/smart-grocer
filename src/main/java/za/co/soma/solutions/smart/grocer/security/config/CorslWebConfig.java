@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-@Configuration
+//@Configuration
 public class CorslWebConfig {
 
    // @Bean
@@ -32,7 +32,7 @@ public class CorslWebConfig {
         return bean;
     }
 
-    @Bean
+   // @Bean
     public  CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));

@@ -33,11 +33,11 @@ public class CustomerController implements SomaValidation {
 
 
     @GetMapping
-    public ResponseEntity<List<Customer>> retrieveAll(){
+    public ResponseEntity<?> retrieveAll(){
         List<Customer> customers =  customerService.getAll();
 
         if(customers.isEmpty()){
-            return  new ResponseEntity(HttpStatus.NO_CONTENT);
+            return  new ResponseEntity(new GrocerErrorType("No customers found"), HttpStatus.OK);
         }
 
         return new ResponseEntity(customers, HttpStatus.OK);
@@ -56,7 +56,7 @@ public class CustomerController implements SomaValidation {
 
         log.warn("Customer with id [] not found", customerId);
 
-        return new ResponseEntity(new GrocerErrorType("Customer with id "+customerId+" not found"), HttpStatus.NOT_FOUND);
+        return new ResponseEntity(new GrocerErrorType("Customer with id "+customerId+" not found"), HttpStatus.OK);
     }
 
     @PutMapping
@@ -66,7 +66,7 @@ public class CustomerController implements SomaValidation {
 
         if(customer.getId() == null && !customerService.retrieve(customer.getId()).isPresent()){
             log.warn("unable to update customer. customer doesnt exist: {}", customer);
-            return new ResponseEntity(new GrocerErrorType("Unable to update. customer doesnt exist: "+ customer), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new GrocerErrorType("Unable to update. customer doesnt exist: "+ customer), HttpStatus.OK);
         }
 
         customer = customerService.update(customer);
@@ -87,5 +87,22 @@ public class CustomerController implements SomaValidation {
         customerService.delete(customerId);
 
     }
+
+    @GetMapping("/referrals/{id}")
+    public ResponseEntity<?> referrals(@PathVariable("id") Long customerId){
+
+        log.info("retrieve customer referrals id: {}", customerId);
+
+        List<Customer> customerReferrals = customerService.referrals(customerId);
+
+        if(!customerReferrals.isEmpty()){
+            return new ResponseEntity(customerReferrals, HttpStatus.OK);
+        }
+
+        log.warn("Customer referrals with id [] not found", customerId);
+
+        return new ResponseEntity(new GrocerErrorType("Customer id "+customerId+" has no referrals"), HttpStatus.OK);
+    }
+
 
 }

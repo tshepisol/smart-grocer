@@ -33,8 +33,10 @@ public class ResourceServerConfig  extends ResourceServerConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll()
-            .antMatchers("/swagger-ui.html#/**", "/register").permitAll()  //maps to filter-order in properties file
-            .antMatchers("/customer/**" ).authenticated();
+            .antMatchers("/swagger-ui.html#/**", "/register").permitAll()
+            .antMatchers("/customer/**" ).permitAll()
+            .antMatchers("/admin/**" ).permitAll();
+            //.antMatchers("/customer/**" ).authenticated();
 
     }
 }

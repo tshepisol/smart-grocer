@@ -1,10 +1,14 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "PAYMENT_HISTORY")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = PaymentHistory.class, property = "id")
 public class PaymentHistory {
 
     @Id
@@ -16,13 +20,13 @@ public class PaymentHistory {
     private BankDetail bankDetail;
 
 
-    private Short month;
+    private Integer month;
 
-    private short Year;
+    private Integer year;
 
     private String reference;
 
-    private double amunt;
+    private double amount;
 
     @Enumerated(EnumType.STRING)
     private PaymentStatusType paymentStatus;
@@ -44,20 +48,20 @@ public class PaymentHistory {
         this.bankDetail = bankDetail;
     }
 
-    public Short getMonth() {
+    public Integer getMonth() {
         return month;
     }
 
-    public void setMonth(Short month) {
+    public void setMonth(Integer month) {
         this.month = month;
     }
 
-    public short getYear() {
-        return Year;
+    public Integer getYear() {
+        return year;
     }
 
-    public void setYear(short year) {
-        Year = year;
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     public String getReference() {
@@ -68,12 +72,12 @@ public class PaymentHistory {
         this.reference = reference;
     }
 
-    public double getAmunt() {
-        return amunt;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setAmunt(double amunt) {
-        this.amunt = amunt;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public PaymentStatusType getPaymentStatus() {

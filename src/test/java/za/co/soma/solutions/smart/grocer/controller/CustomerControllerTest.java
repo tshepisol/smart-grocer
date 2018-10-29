@@ -77,7 +77,7 @@ public class CustomerControllerTest {
         customer.getCustomerAddresses().add(customerAddress);
 
         BankDetail bankDetail = new BankDetail();
-        bankDetail.setAccountnumber(1223344445L);
+        bankDetail.setAccountNumber(1223344445L);
         bankDetail.setBranchCode(00002);
         bankDetail.setDebitDate(1);
         bankDetail.setAccountType(AccountType.CHEQUE);

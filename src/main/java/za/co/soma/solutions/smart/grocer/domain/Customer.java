@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "CUSTOMER")
 @DynamicUpdate
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, scope = Customer.class, property = "@id")
 public class Customer {
 
     @Id
@@ -46,8 +46,9 @@ public class Customer {
     @Email(message = "Email Address invalid")
     private String emailAddress;
 
-    @OneToOne(optional = true)
+    @OneToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "CUSTOMER_REFERRAL_ID", updatable = false)
+   // @JsonManagedReference
     private Customer customerReferral;
 
     @Valid
@@ -55,8 +56,7 @@ public class Customer {
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "PARTNER_ID", updatable = false, insertable = false)
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private  Partner partner;
 
 
