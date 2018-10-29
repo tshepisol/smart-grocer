@@ -1,0 +1,19 @@
+{
+  "customerContacts": [
+    {
+      "number": "0791229427",
+      "contactType": "MOBILE"
+    }
+  ],
+  "customerHampers": [
+    "2e0e29be-cd00-41fd-9aa0-2f43b14c44a1"
+  ],
+  "emailAddress": "warren@jumbleits.com",
+  "firstName": "Thabang",
+  "idNumber": "9401085044080",
+  "lastName": "Mathebula",
+  "user": {
+    "password": "maxine",
+    "username": "warrenmt"
+  }
+}

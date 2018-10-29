@@ -1,5 +1,6 @@
 package za.co.soma.solutions.smart.grocer.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 import za.co.soma.solutions.smart.grocer.exception.GrocerErrorType;
 
 import javax.validation.Validator;
+import java.io.IOException;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -30,6 +32,15 @@ public class RegisterController implements SomaValidation {
 
     @PostMapping
     public ResponseEntity<?> register(@RequestBody Customer customer){
+
+ /*       ObjectMapper mapper = new ObjectMapper();
+
+        Customer customer = null;
+        try {
+            customer =   mapper.readValue(payload, Customer.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
 
         log.info("creating customer: {}", customer);
 

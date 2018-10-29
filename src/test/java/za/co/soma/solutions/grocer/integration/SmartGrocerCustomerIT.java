@@ -1,12 +1,22 @@
 package za.co.soma.solutions.grocer.integration;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import za.co.soma.solutions.smart.grocer.domain.*;
 
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 public class SmartGrocerCustomerIT {
 
@@ -14,11 +24,18 @@ public class SmartGrocerCustomerIT {
    private String host = "http://localhost:8080";
 
     @Test
-    public void register(){
+    public void register() throws JsonProcessingException {
 
         Customer customer = createCustomer1();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        String jsonInString = mapper.writeValueAsString(customer);
+
         RestTemplate restTemplate = new RestTemplate();
         customer = restTemplate.postForObject(host +"/register", customer, Customer.class);
+
+
 
         Assert.assertNotNull(customer.getBankDetails().get(0).getPaymentHistoryList().size());
 
@@ -28,6 +45,21 @@ public class SmartGrocerCustomerIT {
         customer = createCustomer2();
         customer = restTemplate.postForObject(host +"/register", customer, Customer.class);
         System.out.println("Create Customer:"+customer.getBankDetails().get(0).getPaymentHistoryList().get(0).getId());
+    }
+
+
+    @Test
+    public void registerJSON() throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+
+        String payload = new String (Files.readAllBytes(Paths.get("target/test-classes/register/register-payload.json")));
+      //  String url = "endpoint url";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<String>(payload,headers);
+        String answer = restTemplate.postForObject(host+"/register", entity, String.class);
+        System.out.println("response:"+answer);
     }
 
 
@@ -52,6 +84,32 @@ public class SmartGrocerCustomerIT {
 
         System.out.println("URL to retrieve Customer:"+paymentHistories.getBody());
     }
+
+
+    @Test
+    public void hampers(){
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(host+"/hamper", String.class);
+
+        Assert.assertNotNull(responseEntity.getBody());
+
+        System.out.println("URL to retrieve hamper:"+responseEntity.getBody());
+    }
+
+
+    @Test
+    public void hamper(){
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(host+"/hamper/1", String.class);
+
+        Assert.assertNotNull(responseEntity.getBody());
+
+        System.out.println("URL to retrieve hamper:"+responseEntity.getBody());
+    }
+
+
 
 
     @Test

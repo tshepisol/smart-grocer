@@ -34,7 +34,7 @@ public class ResourceServerConfig  extends ResourceServerConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll()
             .antMatchers("/swagger-ui.html#/**", "/register").permitAll()
-            .antMatchers("/customer/**" ).permitAll()
+            .antMatchers("/customer/**", "hamper/**").permitAll()
             .antMatchers("/admin/**" ).permitAll();
             //.antMatchers("/customer/**" ).authenticated();
 
