@@ -109,7 +109,28 @@ public class SmartGrocerCustomerIT {
         System.out.println("URL to retrieve hamper:"+responseEntity.getBody());
     }
 
+    @Test
+    public void resetPartner(){
 
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(host+"/admin/partner/reset", String.class);
+
+        Assert.assertEquals(responseEntity.getStatusCode().value(), 200);
+
+        System.out.println("URL to retrieve hamper:"+responseEntity.getBody());
+    }
+
+
+    @Test
+    public void customerNO(){
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(host+"/customer/ref/GR2", String.class);
+
+        Assert.assertNotNull(responseEntity.getBody());
+
+        System.out.println("URL to retrieve hamper:"+responseEntity.getBody());
+    }
 
 
     @Test

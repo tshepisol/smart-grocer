@@ -1,19 +1,54 @@
 {
+  "@id": null,
+  "id": null,
+  "customerNo": null,
+  "firstName": "Thabang44",
+  "lastName": "Mathebula",
+  "emailAddress": null,
+  "customerReferral": "GR2",
+  "user": {
+    "id": null,
+    "username": "warrenmt4",
+    "password": "maxine",
+    "retryCount": 0,
+    "locked": false,
+    "customer": null,
+    "createAt": null,
+    "lastLogin": null,
+    "roles": []
+  },
+  "partner": null,
   "customerContacts": [
     {
-      "number": "0791229427",
+      "id": null,
+      "number": "0795262301",
       "contactType": "MOBILE"
     }
   ],
-  "customerHampers": [
-    "2e0e29be-cd00-41fd-9aa0-2f43b14c44a1"
+  "customerAddresses": [
+
   ],
-  "emailAddress": "warren@jumbleits.com",
-  "firstName": "Thabang",
-  "idNumber": "9401085044080",
-  "lastName": "Mathebula",
-  "user": {
-    "password": "maxine",
-    "username": "warrenmt"
-  }
+  "customerHampers": [
+    {
+      "@id": "d1bb1770-faca-4501-bc55-1eb2630e5e2e",
+      "id": null,
+      "hamper": {
+        "@id": "bffcadc6-dd85-4b39-ae97-05932c6aa007",
+        "id": 1,
+        "name": "Makro special - Grocery hamper",
+        "vendor": {
+          "id": 1,
+          "name": "MAKRO",
+          "hampers": []
+        },
+        "customerHampers": []
+      },
+      "paymentComplete": false,
+      "hamperClaimed": false
+    }
+  ],
+  "bankDetails": [
+
+  ],
+  "idNumber": "9401085044080"
 }

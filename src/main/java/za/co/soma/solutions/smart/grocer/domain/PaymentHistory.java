@@ -32,6 +32,9 @@ public class PaymentHistory {
     private PaymentStatusType paymentStatus;
 
 
+    private String hamperReference;
+
+
     public Long getId() {
         return id;
     }
@@ -86,5 +89,13 @@ public class PaymentHistory {
 
     public void setPaymentStatus(PaymentStatusType paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public String getHamperReference() {
+        return hamperReference;
+    }
+
+    public void setHamperReference(String hamperReference) {
+        this.hamperReference = hamperReference;
     }
 }

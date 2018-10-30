@@ -31,9 +31,14 @@ public class CustomerHamper {
     @JoinColumn(name = "HAMPER_ID")
     private Hamper hamper;
 
+    @Enumerated(EnumType.STRING)
+    private PaymentStatusType paymentStatus;
+
     private boolean paymentComplete;
 
     private boolean hamperClaimed;
+
+    private String hamperReference;
 
 
     public Long getId() {
@@ -60,6 +65,14 @@ public class CustomerHamper {
         this.hamper = hamper;
     }
 
+    public PaymentStatusType getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatusType paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
     public boolean isPaymentComplete() {
         return paymentComplete;
     }
@@ -74,5 +87,13 @@ public class CustomerHamper {
 
     public void setHamperClaimed(boolean hamperClaimed) {
         this.hamperClaimed = hamperClaimed;
+    }
+
+    public String getHamperReference() {
+        return hamperReference;
+    }
+
+    public void setHamperReference(String hamperReference) {
+        this.hamperReference = hamperReference;
     }
 }

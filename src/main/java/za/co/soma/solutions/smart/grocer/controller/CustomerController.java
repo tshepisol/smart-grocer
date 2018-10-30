@@ -48,16 +48,36 @@ public class CustomerController implements SomaValidation {
 
         log.info("retrieve customer id: {}", customerId);
 
-        Optional<Customer> customerOptional = customerService.retrieve(customerId);
+        Customer customer = customerService.getCustomerByIdJoinFetchCustomerReferral(customerId);
 
-        if(customerOptional.isPresent()){
-            return new ResponseEntity(customerOptional.get(), HttpStatus.OK);
+        if(customer != null){
+            return new ResponseEntity(customer, HttpStatus.OK);
         }
 
         log.warn("Customer with id [] not found", customerId);
 
         return new ResponseEntity(new GrocerErrorType("Customer with id "+customerId+" not found"), HttpStatus.OK);
     }
+
+
+    @GetMapping("/ref/{no}")
+    public ResponseEntity<?> customerNumber(@PathVariable("no") String  customerNo){
+
+        log.info("retrieve customer No: {}", customerNo);
+
+        Customer customer = customerService.getByCustomerNo(customerNo);
+
+        if(customer != null){
+            return new ResponseEntity(customer, HttpStatus.OK);
+        }
+
+        log.warn("Customer with no [] not found", customerNo);
+
+        return new ResponseEntity(new GrocerErrorType("Customer with no "+customerNo+" not found"), HttpStatus.OK);
+    }
+
+
+
 
     @PutMapping
     public ResponseEntity<?> update(@Valid @RequestBody Customer customer){

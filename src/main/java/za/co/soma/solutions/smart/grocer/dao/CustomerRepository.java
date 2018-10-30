@@ -18,4 +18,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     @Query("SELECT c FROM Customer c LEFT JOIN FETCH c.customerReferral cr  WHERE c.id =:id")
     Customer getCustomerByIdJoinFetchCustomerReferral(@Param("id") Long id);
+
+    @Query("SELECT c FROM Customer c  LEFT JOIN FETCH c.customerReferral cr where c.customerNo =:customerNo")
+    Customer getByCustomerNo(@Param("customerNo") String customerNo);
 }

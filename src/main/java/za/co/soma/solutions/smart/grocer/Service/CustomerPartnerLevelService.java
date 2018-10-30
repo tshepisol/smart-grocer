@@ -2,11 +2,14 @@ package za.co.soma.solutions.smart.grocer.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import za.co.soma.solutions.smart.grocer.dao.CustomerHamperRepository;
 import za.co.soma.solutions.smart.grocer.dao.CustomerRepository;
 import za.co.soma.solutions.smart.grocer.dao.PartnerRepository;
 import za.co.soma.solutions.smart.grocer.dao.PaymentHistoryRepository;
 import za.co.soma.solutions.smart.grocer.domain.Customer;
+import za.co.soma.solutions.smart.grocer.domain.CustomerHamper;
 import za.co.soma.solutions.smart.grocer.domain.PaymentHistory;
+import za.co.soma.solutions.smart.grocer.domain.PaymentStatusType;
 import za.co.soma.solutions.smart.grocer.referral.CustomerReferral;
 import za.co.soma.solutions.smart.grocer.referral.PartnerClassifier;
 
@@ -30,10 +33,18 @@ public class CustomerPartnerLevelService {
     @Autowired
     PartnerClassifier partnerClassifier;
 
+
+    @Autowired
+    CustomerHamperRepository customerHamperRepository;
+
     Map<Long, CustomerReferral> customerReferralMap = new HashMap<>();
 
-    public void removePartnerLevel() {
+    public void resetPartnerLevel() {
         partnerRepository.deleteAllPartnerLevel();
+    }
+
+    public void resetHamperPaymentStatus(){
+        customerHamperRepository.updatePaymentStatusNull();
     }
 
     public List<PaymentHistory> history() {
@@ -45,6 +56,8 @@ public class CustomerPartnerLevelService {
 
         return paymentHistories;
     }
+
+
 
 
     public void determinePartnerLevel() {
@@ -60,6 +73,10 @@ public class CustomerPartnerLevelService {
         List<PaymentHistory> currentPaymentHistories = paymentHistoryRepository.findByYearMonth(year, month);
 
         currentPaymentHistories.stream().forEach(paymentHistory -> {
+
+            //UPDATE HAMPER =PAID STATUS
+            updateHamperStatus(paymentHistory);
+
 
             Long referralId = null;
             if(paymentHistory.getBankDetail().getCustomer().getCustomerReferral() != null)
@@ -80,6 +97,13 @@ public class CustomerPartnerLevelService {
 
         partnerClassifier.classify(customerReferralMap);
 
+    }
+
+    private void updateHamperStatus(PaymentHistory paymentHistory){
+        CustomerHamper customerHamper = customerHamperRepository.getByHamperReference(paymentHistory.getHamperReference());
+        //TODO LOG FAILED CORRELATION_ID
+        customerHamper.setPaymentStatus(PaymentStatusType.PAID);
+        customerHamperRepository.save(customerHamper);
     }
 
     private Long getReferral(Customer customer) {

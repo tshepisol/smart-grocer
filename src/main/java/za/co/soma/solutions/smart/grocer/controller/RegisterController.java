@@ -31,16 +31,18 @@ public class RegisterController implements SomaValidation {
 
 
     @PostMapping
-    public ResponseEntity<?> register(@RequestBody Customer customer){
+    public ResponseEntity<?> register(@RequestBody String payload){
 
- /*       ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
 
         Customer customer = null;
         try {
             customer =   mapper.readValue(payload, Customer.class);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+
+            return new ResponseEntity(new GrocerErrorType("Transformation error"+ e.getMessage()), HttpStatus.OK);
+        }
 
         log.info("creating customer: {}", customer);
 

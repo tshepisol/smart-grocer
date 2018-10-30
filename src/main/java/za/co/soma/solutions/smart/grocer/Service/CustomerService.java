@@ -59,6 +59,14 @@ public class CustomerService {
         customerRepository.deleteById(customerId);
     }
 
+    public Customer getCustomerByIdJoinFetchCustomerReferral(Long customerId){
+        return customerRepository.getCustomerByIdJoinFetchCustomerReferral(customerId);
+    }
+
+    public Customer getByCustomerNo(String customerNo){
+        return  customerRepository.getByCustomerNo(customerNo);
+    }
+
 
     private void createDefaultCustomer(Customer customer){
 

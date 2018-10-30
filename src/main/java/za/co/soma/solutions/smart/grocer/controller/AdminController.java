@@ -30,4 +30,16 @@ public class AdminController {
     public List<PaymentHistory> historyList(){
        return customerPartnerLevelService.history();
     }
+
+    @GetMapping("/partner/reset")
+    public void resetPartner(){
+        customerPartnerLevelService.resetPartnerLevel();
+    }
+
+
+    @GetMapping("/hamper/reset")
+    public void resetHamperPayment(){
+        customerPartnerLevelService.resetHamperPaymentStatus();
+    }
+
 }
