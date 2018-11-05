@@ -4,15 +4,19 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "CUSTOMER_HAMPER")
 @DynamicUpdate
 @JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, scope = CustomerHamper.class, property = "@id")
-public class CustomerHamper {
+public class CustomerHamper implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +42,13 @@ public class CustomerHamper {
 
     private boolean hamperClaimed;
 
+    @NaturalId
     private String hamperReference;
 
+    private String paymentCycle;
+
+    @OneToMany(mappedBy = "customerHamper")
+    private List<PaymentHistory> paymentHistories = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -95,5 +104,13 @@ public class CustomerHamper {
 
     public void setHamperReference(String hamperReference) {
         this.hamperReference = hamperReference;
+    }
+
+    public String getPaymentCycle() {
+        return paymentCycle;
+    }
+
+    public void setPaymentCycle(String paymentCycle) {
+        this.paymentCycle = paymentCycle;
     }
 }

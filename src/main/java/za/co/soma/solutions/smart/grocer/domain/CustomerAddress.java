@@ -33,6 +33,8 @@ public class CustomerAddress {
     @Enumerated(EnumType.STRING)
     private  AddressType addressType;
 
+    private Boolean billing;
+
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -101,5 +103,13 @@ public class CustomerAddress {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Boolean getBilling() {
+        return billing;
+    }
+
+    public void setBilling(Boolean billing) {
+        this.billing = billing;
     }
 }

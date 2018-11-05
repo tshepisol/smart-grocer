@@ -75,7 +75,7 @@ public class CustomerPartnerLevelService {
         currentPaymentHistories.stream().forEach(paymentHistory -> {
 
             //UPDATE HAMPER =PAID STATUS
-            updateHamperStatus(paymentHistory);
+         //   updateHamperStatus(paymentHistory);
 
 
             Long referralId = null;
@@ -99,12 +99,12 @@ public class CustomerPartnerLevelService {
 
     }
 
-    private void updateHamperStatus(PaymentHistory paymentHistory){
+/*    private void updateHamperStatus(PaymentHistory paymentHistory){
         CustomerHamper customerHamper = customerHamperRepository.getByHamperReference(paymentHistory.getHamperReference());
         //TODO LOG FAILED CORRELATION_ID
         customerHamper.setPaymentStatus(PaymentStatusType.PAID);
         customerHamperRepository.save(customerHamper);
-    }
+    }*/
 
     private Long getReferral(Customer customer) {
         Customer customerReferral = customerRepository.getCustomerByIdJoinFetchCustomerReferral(customer.getId());

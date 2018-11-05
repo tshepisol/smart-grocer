@@ -29,7 +29,7 @@ public class CustomerService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    private static final String PREFIX_GROCER = "GR";
+    private static final String PREFIX_GROCER = "SS";
 
 
 

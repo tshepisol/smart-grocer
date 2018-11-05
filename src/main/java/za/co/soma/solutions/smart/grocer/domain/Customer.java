@@ -74,7 +74,7 @@ public class Customer {
 
 
     @Valid
-    @Size(min = 1, message = "Hamper cannot be empty", groups = {Registration.class, Default.class})
+    //@Size(min = 1, message = "Hamper cannot be empty", groups = {Registration.class, Default.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<CustomerHamper> customerHampers = new ArrayList<>();
@@ -85,6 +85,12 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<BankDetail> bankDetails = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<CardDetail> cardDetails = new ArrayList<>();
+
 
 
 
@@ -190,5 +196,13 @@ public class Customer {
 
     public void setBankDetails(List<BankDetail> bankDetails) {
         this.bankDetails = bankDetails;
+    }
+
+    public List<CardDetail> getCardDetails() {
+        return cardDetails;
+    }
+
+    public void setCardDetails(List<CardDetail> cardDetails) {
+        this.cardDetails = cardDetails;
     }
 }

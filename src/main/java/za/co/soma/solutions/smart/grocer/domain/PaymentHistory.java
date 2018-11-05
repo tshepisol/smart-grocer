@@ -31,8 +31,9 @@ public class PaymentHistory {
     @Enumerated(EnumType.STRING)
     private PaymentStatusType paymentStatus;
 
-
-    private String hamperReference;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "hamperReference")
+    private CustomerHamper customerHamper;
 
 
     public Long getId() {
@@ -91,11 +92,11 @@ public class PaymentHistory {
         this.paymentStatus = paymentStatus;
     }
 
-    public String getHamperReference() {
-        return hamperReference;
+    public CustomerHamper getCustomerHamper() {
+        return customerHamper;
     }
 
-    public void setHamperReference(String hamperReference) {
-        this.hamperReference = hamperReference;
+    public void setCustomerHamper(CustomerHamper customerHamper) {
+        this.customerHamper = customerHamper;
     }
 }
