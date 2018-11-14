@@ -96,8 +96,6 @@ public class RegisterController implements SomaValidation {
             return new ResponseEntity(grocerErrorType, HttpStatus.OK);
         }
 
-
-
         customer = customerService.createCustomerHamper(customer);
 
         hamperGeneratorService.createCustomerHamper(customer.getCustomerHampers());

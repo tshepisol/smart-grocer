@@ -87,6 +87,9 @@ public class CardDetail {
 
 
         try {
+            if(expiryDate == null)
+                return;
+
             cardDateFormat.parse(expiryDate);
         } catch (ParseException e) {
            throw  new RuntimeException("Invalid card expiry date format. MM/yy expected");

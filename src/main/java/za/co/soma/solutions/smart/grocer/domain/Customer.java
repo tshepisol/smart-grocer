@@ -40,8 +40,8 @@ public class Customer {
    /* @Enumerated(EnumType.STRING)
     private GenderType gender;*/
 
-    @NotNull(message = "ID number cannot be empty")
-    @Digits(integer = 13, fraction = 0, message = "ID Number invalid")
+    //@NotNull(message = "ID number cannot be empty")
+   // @Digits(integer = 13, fraction = 0, message = "ID Number invalid")
     private String IdNumber;
 
     @Email(message = "Email Address invalid")
