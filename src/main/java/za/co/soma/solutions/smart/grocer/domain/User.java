@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "USER", uniqueConstraints={@UniqueConstraint(columnNames={"username"})})
+@Table(name = "USER_", uniqueConstraints={@UniqueConstraint(columnNames={"username_"})})
 @DynamicUpdate
 public class User {
 
@@ -28,7 +28,7 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username_")
     @NotNull(message = "Username name Required", groups = {Registration.class, Default.class})
     private String username;
 

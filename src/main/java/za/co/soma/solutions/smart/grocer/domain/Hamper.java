@@ -7,6 +7,7 @@ import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 
 import javax.persistence.*;
 import javax.validation.constraints.Null;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class Hamper {
 
     private Integer unitMeasure;
 
-    private Double price;
+    private BigDecimal price;
 
     @Null(message = "Vendor must be NULL", groups = Registration.class)
     @ManyToOne
@@ -101,11 +102,11 @@ public class Hamper {
         this.unitMeasure = unitMeasure;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

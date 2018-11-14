@@ -1,6 +1,7 @@
 package za.co.soma.solutions.smart.grocer.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import za.co.soma.solutions.smart.grocer.exception.GrocerErrorType;
 
 import javax.validation.Valid;
 import javax.validation.Validator;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,7 +82,18 @@ public class CustomerController implements SomaValidation {
 
 
     @PutMapping
-    public ResponseEntity<?> update(@Valid @RequestBody Customer customer){
+    public ResponseEntity<?> update(@RequestBody String payload){
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        Customer customer = null;
+        try {
+            customer =   mapper.readValue(payload, Customer.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            return new ResponseEntity(new GrocerErrorType("Transformation error"+ e.getMessage()), HttpStatus.OK);
+        }
 
         log.info("update customer: {}", customer);
 
