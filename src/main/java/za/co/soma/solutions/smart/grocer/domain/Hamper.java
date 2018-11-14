@@ -1,6 +1,7 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "HAMPER")
-@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, scope = Hamper.class, property = "@id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = Hamper.class, property = "id")
 public class Hamper {
 
     @Id
@@ -39,8 +40,9 @@ public class Hamper {
     @JoinColumn(name = "VENDOR_ID", updatable = false, insertable = false)
     private Vendor vendor;
 
-    @OneToMany(mappedBy = "hamper",  cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CustomerHamper> customerHampers = new ArrayList<>();
+/*    @OneToMany(mappedBy = "hamper",  cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JsonManagedReference
+    private List<CustomerHamper> customerHampers = new ArrayList<>();*/
 
 
     public Long getId() {
@@ -115,11 +117,11 @@ public class Hamper {
         this.vendor = vendor;
     }
 
-    public List<CustomerHamper> getCustomerHampers() {
+    /*public List<CustomerHamper> getCustomerHampers() {
         return customerHampers;
     }
 
     public void setCustomerHampers(List<CustomerHamper> customerHampers) {
         this.customerHampers = customerHampers;
-    }
+    }*/
 }

@@ -45,9 +45,21 @@ public class CustomerService {
 
     public Customer create(Customer customer){
 
-        createDefaultCustomer(customer);
+        if(customer.getCustomerNo() == null)
+            createDefaultCustomer(customer);
 
         return customerRepository.save(customer);
+    }
+
+    public Customer save(Customer customer){
+        return customerRepository.save(customer);
+    }
+
+    public Customer createCustomerHamper(Customer customer){
+        customerReferral(customer);
+        createDefaultCustomerHanper(customer);
+
+        return  customerRepository.save(customer);
     }
 
     public Customer update(Customer customer){
@@ -82,6 +94,20 @@ public class CustomerService {
         System.out.println("Customer NO:"+customer);
         customer.setCustomerNo(PREFIX_GROCER + customerNo);
 
+        defaultRelationships(customer);
+
+
+    }
+
+
+    private void createDefaultCustomerHanper(Customer customer){
+
+        customerReferral(customer);
+        defaultRelationships(customer);
+    }
+
+
+    private void defaultRelationships(Customer customer){
         customer.getCustomerAddresses().stream().forEach(customerAddress -> {
             if(customerAddress.getCustomer() == null)
                 customerAddress.setCustomer(customer);
@@ -97,6 +123,9 @@ public class CustomerService {
                 bankDetail.setCustomer(customer);
         });
 
+        customer.getCustomerHampers().stream().forEach( customerHamper -> {
+            customerHamper.setCustomer(customer);
+        });
     }
 
     private void customerReferral(Customer customer){

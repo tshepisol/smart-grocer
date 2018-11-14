@@ -1,8 +1,6 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NaturalId;
 
@@ -15,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "CUSTOMER_HAMPER")
 @DynamicUpdate
-@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, scope = CustomerHamper.class, property = "@id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = CustomerHamper.class, property = "id")
 public class CustomerHamper implements Serializable {
 
     @Id
@@ -26,13 +24,14 @@ public class CustomerHamper implements Serializable {
     @NotNull(message = "Customer required - Customer Hamper mapping")
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
-    @JsonBackReference
+   // @JsonBackReference
     private Customer customer;
 
 
     @NotNull(message = "Hamper required - CustomerHamper mapping")
     @ManyToOne
     @JoinColumn(name = "HAMPER_ID")
+   // @JsonBackReference
     private Hamper hamper;
 
     @Enumerated(EnumType.STRING)
@@ -48,6 +47,7 @@ public class CustomerHamper implements Serializable {
     private String paymentCycle;
 
     @OneToMany(mappedBy = "customerHamper")
+    @JsonManagedReference
     private List<PaymentHistory> paymentHistories = new ArrayList<>();
 
     public Long getId() {
@@ -112,5 +112,13 @@ public class CustomerHamper implements Serializable {
 
     public void setPaymentCycle(String paymentCycle) {
         this.paymentCycle = paymentCycle;
+    }
+
+    public List<PaymentHistory> getPaymentHistories() {
+        return paymentHistories;
+    }
+
+    public void setPaymentHistories(List<PaymentHistory> paymentHistories) {
+        this.paymentHistories = paymentHistories;
     }
 }

@@ -5,6 +5,7 @@ insert into role (role_name) values ('CLERK');
 
 
 insert into customer_no (customer_number) values (1);
+insert into hamper_no (hamper_number) values (1);
 
 insert into partner (partner_type, referral) values ('LEVEL_1', 1);
 

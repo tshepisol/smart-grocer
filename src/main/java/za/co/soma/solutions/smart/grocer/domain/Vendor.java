@@ -15,10 +15,10 @@ public class Vendor {
 
     private String name;
 
+/*
     @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Hamper> hampers = new ArrayList<>();
-
-
+*/
 
 
     public Long getId() {
@@ -37,11 +37,12 @@ public class Vendor {
         this.name = name;
     }
 
-    public List<Hamper> getHampers() {
+  /*  public List<Hamper> getHampers() {
         return hampers;
     }
 
     public void setHampers(List<Hamper> hampers) {
         this.hampers = hampers;
     }
+*/
 }

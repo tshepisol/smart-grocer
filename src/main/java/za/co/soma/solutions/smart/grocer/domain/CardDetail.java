@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,7 +20,8 @@ import java.text.SimpleDateFormat;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = CardDetail.class, property = "id")
 public class CardDetail {
 
-    private DateFormat cardDateFormat = new SimpleDateFormat("MM/YY");
+    @Transient
+    private  static DateFormat cardDateFormat = new SimpleDateFormat("MM/YY");
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +38,7 @@ public class CardDetail {
 
     private String expiryDate;
 
-    @Length(min = 3, max = 3, message = "Invalid CVV")
+   // @Size(min = 3, max = 3, message = "Invalid CVV")
     private int cvv;
 
 

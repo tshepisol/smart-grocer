@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 public class SmartGrocerCustomerIT {
 
     private String host = "http://35.242.165.19";
-   //private String host = "http://localhost:8080";
+ //  private String host = "http://localhost:8080";
 
     @Test
     public void register() throws JsonProcessingException {
@@ -60,6 +60,39 @@ public class SmartGrocerCustomerIT {
         HttpEntity<String> entity = new HttpEntity<String>(payload,headers);
         String answer = restTemplate.postForObject(host+"/register", entity, String.class);
         System.out.println("response:"+answer);
+    }
+
+    @Test
+    public void updateCustomer() throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+
+
+        String payload = new String (Files.readAllBytes(Paths.get("target/test-classes/register/register-payload.json")));
+        HttpEntity<String> entity = new HttpEntity<String>(payload,headers);
+
+         restTemplate.put(host+"/customer", entity);
+
+    }
+
+    @Test
+    public void registerHamper(){
+
+        RestTemplate restTemplate = new RestTemplate();
+        Customer customer = createCustomer3();
+        customer = restTemplate.postForObject(host +"/register", customer, Customer.class);
+        Assert.assertNotNull(customer.getId());
+
+        System.out.println("URL to retrieve Customer:"+customer);
+
+
+        createCustomerHamper1(customer);
+
+
+        restTemplate.put(host+"/register/hamper", customer);
     }
 
 
@@ -173,6 +206,67 @@ public class SmartGrocerCustomerIT {
 
 
 
+    private void createCustomerHamper1(Customer customer){
+        CustomerHamper customerHamper = new CustomerHamper();
+        customerHamper.setCustomer(customer);
+        Hamper hamper =  new Hamper();
+        hamper.setId(1L);
+        hamper.setVendor(new Vendor());
+        hamper.getVendor().setId(1L);
+        customerHamper.setHamper(hamper);
+        customer.getCustomerHampers().add(customerHamper);
+    }
+
+    private Customer createCustomer3(){
+        Customer customer = new Customer();//id=2
+        customer.setLastName("MANDLA");
+        customer.setFirstName("HAMPER");
+        customer.setIdNumber("9003165495086");
+        customer.setUser(new User());
+        customer.getUser().setUsername("mylogin");
+        customer.getUser().setPassword("123");
+
+        Customer customer1 = new Customer();
+        customer1.setId(1L);
+        customer.setCustomerReferral(customer1);
+
+        CustomerAddress customerAddress = new CustomerAddress();
+        customerAddress.setNumber("13");
+        customerAddress.setStreetName("draaibos Cresent");
+        customerAddress.setTown("soshanguve North");
+        customerAddress.setAddressType(AddressType.POSTAL);
+        customerAddress.setPostalCode("0182");
+        customer.getCustomerAddresses().add(customerAddress);
+        customerAddress.setCustomer(customer);
+
+        BankDetail bankDetail = new BankDetail();
+        bankDetail.setAccountNumber(new Long (new Random().nextInt(99999999)));
+        bankDetail.setBranchCode(00002);
+        bankDetail.setDebitDate(20);
+        bankDetail.setAccountType(AccountType.CHEQUE);
+        bankDetail.setBank(BankType.FNB);
+        customer.getBankDetails().add(bankDetail);
+       /* PaymentHistory paymentHistory = new PaymentHistory();
+        paymentHistory.setAmount(400);
+        paymentHistory.setMonth(11);
+        paymentHistory.setYear(2018);
+        paymentHistory.setPaymentStatus(PaymentStatusType.PAID);
+
+        paymentHistory.setBankDetail(bankDetail);
+        bankDetail.getPaymentHistoryList().add(paymentHistory);*/
+
+        CustomerContact customerContact = new CustomerContact();
+        customerContact.setContactType(ContactType.MOBILE);
+        customerContact.setNumber("0795262301");
+        customer.getCustomerContacts().add(customerContact);
+
+
+
+
+        return  customer;
+    }
+
+
     private Customer createCustomer2(){
         Customer customer = new Customer();//id=2
         customer.setLastName("Letswalo");
@@ -204,7 +298,7 @@ public class SmartGrocerCustomerIT {
         customer.getBankDetails().add(bankDetail);
         PaymentHistory paymentHistory = new PaymentHistory();
         paymentHistory.setAmount(400);
-        paymentHistory.setMonth(10);
+        paymentHistory.setMonth(11);
         paymentHistory.setYear(2018);
         paymentHistory.setPaymentStatus(PaymentStatusType.PAID);
 
@@ -223,10 +317,10 @@ public class SmartGrocerCustomerIT {
 
         Hamper hamper =  new Hamper();
         hamper.setId(1L);
-        hamper.setName("Makro special - Grocery hamper");
+     //   hamper.setName("Makro special - Grocery hamper");
         hamper.setVendor(new Vendor());
         hamper.getVendor().setId(1L);
-        hamper.getVendor().setName("MAKRO");
+       // hamper.getVendor().setName("MAKRO");
         customerHamper.setHamper(hamper);
         customer.getCustomerHampers().add(customerHamper);
 
@@ -262,7 +356,7 @@ public class SmartGrocerCustomerIT {
         bankDetail.setBank(BankType.ABSA);
         PaymentHistory paymentHistory = new PaymentHistory();
         paymentHistory.setAmount(200);
-        paymentHistory.setMonth(10);
+        paymentHistory.setMonth(11);
         paymentHistory.setYear(2018);
         paymentHistory.setPaymentStatus(PaymentStatusType.PAID);
         paymentHistory.setBankDetail(bankDetail);
@@ -277,14 +371,14 @@ public class SmartGrocerCustomerIT {
         CustomerHamper customerHamper = new CustomerHamper();
         customerHamper.setCustomer(customer);
         paymentHistory.setCustomerHamper(customerHamper);
-        customerHamper.setHamperReference("HAMPER@");
+        customerHamper.setHamperReference("HAMPER-1");
 
         Hamper hamper =  new Hamper();
         hamper.setId(1L);
-        hamper.setName("Makro special - Grocery hamper");
+      //  hamper.setName("Makro special - Grocery hamper");
         hamper.setVendor(new Vendor());
         hamper.getVendor().setId(1L);
-        hamper.getVendor().setName("MAKRO");
+       // hamper.getVendor().setName("MAKRO");
         customerHamper.setHamper(hamper);
         customer.getCustomerHampers().add(customerHamper);
 

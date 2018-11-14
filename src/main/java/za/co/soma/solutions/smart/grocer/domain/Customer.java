@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.DynamicUpdate;
+import za.co.soma.solutions.smart.grocer.domain.validator.HamperRegistration;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 
 import javax.persistence.*;
@@ -74,9 +75,9 @@ public class Customer {
 
 
     @Valid
-    //@Size(min = 1, message = "Hamper cannot be empty", groups = {Registration.class, Default.class})
+    @Size(min = 1, message = "Hamper cannot be empty", groups = {HamperRegistration.class})
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+   // @JsonManagedReference
     private List<CustomerHamper> customerHampers = new ArrayList<>();
 
     @Valid

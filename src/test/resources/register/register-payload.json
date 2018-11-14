@@ -1,54 +1,102 @@
 {
-  "@id": null,
-  "id": null,
-  "customerNo": null,
-  "firstName": "Thabang44",
-  "lastName": "Mathebula",
+  "@id": "73bfa9c7-bd96-413f-9bdb-3d092d6ad9fe",
+  "id": 1,
+  "customerNo": "SS2",
+  "firstName": "lebo",
+  "lastName": "lebo",
   "emailAddress": null,
-  "customerReferral": "GR2",
+  "customerReferral": null,
   "user": {
-    "id": null,
-    "username": "warrenmt4",
-    "password": "maxine",
+    "id": 1,
+    "username": "lebo",
+    "password": "$2a$10$JXOpm99zthr1UngsUas2XeQV3oBS7h73H.Gzp.sEDBfBWV7mqeogO",
     "retryCount": 0,
     "locked": false,
-    "customer": null,
-    "createAt": null,
+    "customer": "73bfa9c7-bd96-413f-9bdb-3d092d6ad9fe",
+    "createAt": "2018-11-05T19:25:33.603+0000",
     "lastLogin": null,
-    "roles": []
+    "roles": [
+      {
+        "id": 1,
+        "roleName": "CUSTOMER",
+        "description": null
+      }
+    ]
   },
-  "partner": null,
+  "partner": {
+    "id": 2,
+    "partnerType": "LEVEL_1",
+    "referral": 1,
+    "customer": "73bfa9c7-bd96-413f-9bdb-3d092d6ad9fe"
+  },
   "customerContacts": [
     {
-      "id": null,
+      "id": 1,
       "number": "0795262301",
       "contactType": "MOBILE"
     }
   ],
   "customerAddresses": [
-
+    {
+      "id": 1,
+      "number": "13",
+      "streetName": "Tiemie Cresent",
+      "town": "Rooihuiskraal North",
+      "postalCode": "0182",
+      "addressType": "POSTAL",
+      "billing": null
+    }
   ],
   "customerHampers": [
     {
-      "@id": "d1bb1770-faca-4501-bc55-1eb2630e5e2e",
-      "id": null,
+      "id": 1,
+      "customer": "73bfa9c7-bd96-413f-9bdb-3d092d6ad9fe",
       "hamper": {
-        "@id": "bffcadc6-dd85-4b39-ae97-05932c6aa007",
         "id": 1,
-        "name": "Makro special - Grocery hamper",
+        "productCode": "STA1BOM",
+        "name": "Pens",
+        "category": "EDUCATION",
+        "brand": "Bic",
+        "quantity": 12,
+        "unitMeasure": 16,
+        "price": 10,
         "vendor": {
           "id": 1,
-          "name": "MAKRO",
-          "hampers": []
-        },
-        "customerHampers": []
+          "name": "SOMA"
+        }
       },
+      "paymentStatus": null,
       "paymentComplete": false,
-      "hamperClaimed": false
+      "hamperClaimed": false,
+      "hamperReference": "HAMPER-1",
+      "paymentCycle": null,
+      "paymentHistories": []
     }
   ],
   "bankDetails": [
-
+    {
+      "accountNumber": 22372396,
+      "bank": "ABSA",
+      "branchCode": 2,
+      "debitDate": 1,
+      "accountType": "CHEQUE",
+      "paymentHistoryList": [
+        {
+          "id": 1,
+          "bankDetail": 22372396,
+          "month": 11,
+          "year": 2018,
+          "reference": null,
+          "amount": 200,
+          "paymentStatus": "PAID"
+        }
+      ]
+    }
   ],
-  "idNumber": "9401085044080"
+  "cardDetails": [
+    {
+      "cardType": null
+    }
+  ],
+  "idNumber": "0103165495086"
 }

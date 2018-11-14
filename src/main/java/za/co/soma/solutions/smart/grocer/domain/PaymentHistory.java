@@ -1,6 +1,7 @@
 package za.co.soma.solutions.smart.grocer.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -33,6 +34,7 @@ public class PaymentHistory {
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "hamperReference")
+    @JsonBackReference
     private CustomerHamper customerHamper;
 
 
