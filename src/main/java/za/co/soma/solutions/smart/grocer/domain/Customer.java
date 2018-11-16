@@ -92,6 +92,8 @@ public class Customer {
     @JsonManagedReference
     private List<CardDetail> cardDetails = new ArrayList<>();
 
+    private boolean onboardComplete;
+
 
 
 
@@ -205,5 +207,13 @@ public class Customer {
 
     public void setCardDetails(List<CardDetail> cardDetails) {
         this.cardDetails = cardDetails;
+    }
+
+    public boolean isOnboardComplete() {
+        return onboardComplete;
+    }
+
+    public void setOnboardComplete(boolean onboardComplete) {
+        this.onboardComplete = onboardComplete;
     }
 }

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import za.co.soma.solutions.smart.grocer.Service.CustomerService;
 import za.co.soma.solutions.smart.grocer.Service.HamperGeneratorService;
 import za.co.soma.solutions.smart.grocer.Service.SomaValidation;
-import za.co.soma.solutions.smart.grocer.dao.HamperRepository;
 import za.co.soma.solutions.smart.grocer.domain.Customer;
+import za.co.soma.solutions.smart.grocer.domain.validator.HamperRegistration;
 import za.co.soma.solutions.smart.grocer.domain.validator.Registration;
 import za.co.soma.solutions.smart.grocer.exception.GrocerErrorType;
 
@@ -34,11 +34,14 @@ public class RegisterController implements SomaValidation {
     @Autowired
     Validator validator;
 
+    @Autowired
+    ObjectMapper mapper;
+
 
     @PostMapping("register")
     public ResponseEntity<?> register(@RequestBody String payload){
 
-        ObjectMapper mapper = new ObjectMapper();
+
 
         Customer customer = null;
         try {
@@ -72,7 +75,6 @@ public class RegisterController implements SomaValidation {
     @PostMapping("/register/hamper")
     public ResponseEntity<?> registerHamper(@RequestBody String payload){
 
-        ObjectMapper mapper = new ObjectMapper();
 
         Customer customer = null;
         try {
@@ -90,7 +92,7 @@ public class RegisterController implements SomaValidation {
             return new ResponseEntity(new GrocerErrorType("customer id or no cannot be NULL: "+ customer), HttpStatus.OK);
         }
 
-        GrocerErrorType grocerErrorType = validate(validator, customer, HamperRepository.class);
+        GrocerErrorType grocerErrorType = validate(validator, customer, HamperRegistration.class);
         if(grocerErrorType != null){
             log.warn("unable to register customer hamper. validation failed: {}", customer);
             return new ResponseEntity(grocerErrorType, HttpStatus.OK);
@@ -99,8 +101,9 @@ public class RegisterController implements SomaValidation {
         customer = customerService.createCustomerHamper(customer);
 
         hamperGeneratorService.createCustomerHamper(customer.getCustomerHampers());
+        customer.setOnboardComplete(true);
 
-        //customerService.save(customer);
+
 
 
         return new ResponseEntity(customer, HttpStatus.OK);

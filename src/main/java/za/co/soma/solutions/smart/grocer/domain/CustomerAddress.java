@@ -18,7 +18,7 @@ public class CustomerAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Number field cannot be empty")
+    //@NotNull(message = "Number field cannot be empty")
     private String number;
 
     private String streetName;

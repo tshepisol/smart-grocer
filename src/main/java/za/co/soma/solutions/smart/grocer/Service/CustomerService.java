@@ -101,8 +101,6 @@ public class CustomerService {
 
 
     private void createDefaultCustomerHanper(Customer customer){
-
-        customerReferral(customer);
         defaultRelationships(customer);
     }
 
