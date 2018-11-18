@@ -17,6 +17,9 @@ public class GrocerResponseEntityExceptionHandler extends ResponseEntityExceptio
 
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+
+        ex.printStackTrace();
+
         return new ResponseEntity( new GrocerErrorType( ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

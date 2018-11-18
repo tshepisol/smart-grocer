@@ -1,102 +1,31 @@
 {
-  "@id": "73bfa9c7-bd96-413f-9bdb-3d092d6ad9fe",
-  "id": 1,
-  "customerNo": "SS2",
-  "firstName": "lebo",
-  "lastName": "lebo",
+  "@id": null,
+  "id": null,
+  "customerNo": null,
+  "firstName": "",
+  "lastName": "",
   "emailAddress": null,
   "customerReferral": null,
   "user": {
-    "id": 1,
-    "username": "lebo",
-    "password": "$2a$10$JXOpm99zthr1UngsUas2XeQV3oBS7h73H.Gzp.sEDBfBWV7mqeogO",
+    "id": null,
+    "username": "0791229427",
+    "password": "maxine",
     "retryCount": 0,
     "locked": false,
-    "customer": "73bfa9c7-bd96-413f-9bdb-3d092d6ad9fe",
-    "createAt": "2018-11-05T19:25:33.603+0000",
+    "customer": null,
+    "createAt": null,
     "lastLogin": null,
-    "roles": [
-      {
-        "id": 1,
-        "roleName": "CUSTOMER",
-        "description": null
-      }
-    ]
+    "roles": []
   },
-  "partner": {
-    "id": 2,
-    "partnerType": "LEVEL_1",
-    "referral": 1,
-    "customer": "73bfa9c7-bd96-413f-9bdb-3d092d6ad9fe"
-  },
+  "partner": null,
   "customerContacts": [
     {
-      "id": 1,
-      "number": "0795262301",
+      "number": "0791229427",
       "contactType": "MOBILE"
     }
   ],
-  "customerAddresses": [
-    {
-      "id": 1,
-      "number": "13",
-      "streetName": "Tiemie Cresent",
-      "town": "Rooihuiskraal North",
-      "postalCode": "0182",
-      "addressType": "POSTAL",
-      "billing": null
-    }
-  ],
-  "customerHampers": [
-    {
-      "id": 1,
-      "customer": "73bfa9c7-bd96-413f-9bdb-3d092d6ad9fe",
-      "hamper": {
-        "id": 1,
-        "productCode": "STA1BOM",
-        "name": "Pens",
-        "category": "EDUCATION",
-        "brand": "Bic",
-        "quantity": 12,
-        "unitMeasure": 16,
-        "price": 10,
-        "vendor": {
-          "id": 1,
-          "name": "SOMA"
-        }
-      },
-      "paymentStatus": null,
-      "paymentComplete": false,
-      "hamperClaimed": false,
-      "hamperReference": "HAMPER-1",
-      "paymentCycle": null,
-      "paymentHistories": []
-    }
-  ],
-  "bankDetails": [
-    {
-      "accountNumber": 22372396,
-      "bank": "ABSA",
-      "branchCode": 2,
-      "debitDate": 1,
-      "accountType": "CHEQUE",
-      "paymentHistoryList": [
-        {
-          "id": 1,
-          "bankDetail": 22372396,
-          "month": 11,
-          "year": 2018,
-          "reference": null,
-          "amount": 200,
-          "paymentStatus": "PAID"
-        }
-      ]
-    }
-  ],
-  "cardDetails": [
-    {
-      "cardType": null
-    }
-  ],
-  "idNumber": "0103165495086"
+  "customerAddresses": [],
+  "customerHampers": [],
+  "bankDetails": [],
+  "idNumber": ""
 }

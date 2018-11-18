@@ -20,8 +20,8 @@ import java.util.ResourceBundle;
 
 public class SmartGrocerCustomerIT {
 
-    private String host = "http://35.242.165.19";
- //  private String host = "http://localhost:8080";
+ //  private String host = "http://35.242.165.19";
+   private String host = "http://localhost:8080";
 
     @Test
     public void register() throws JsonProcessingException {
@@ -368,19 +368,19 @@ public class SmartGrocerCustomerIT {
         customerContact.setNumber("0795262301");
         customer.getCustomerContacts().add(customerContact);
 
-        CustomerHamper customerHamper = new CustomerHamper();
-        customerHamper.setCustomer(customer);
-        paymentHistory.setCustomerHamper(customerHamper);
-        customerHamper.setHamperReference("HAMPER-1");
+       // CustomerHamper customerHamper = new CustomerHamper();
+       // customerHamper.setCustomer(customer);
+       // paymentHistory.setCustomerHamper(customerHamper);
+       // customerHamper.setHamperReference("HAMPER-1");
 
-        Hamper hamper =  new Hamper();
-        hamper.setId(1L);
+        //Hamper hamper =  new Hamper();
+        //hamper.setId(1L);
       //  hamper.setName("Makro special - Grocery hamper");
-        hamper.setVendor(new Vendor());
-        hamper.getVendor().setId(1L);
+        //hamper.setVendor(new Vendor());
+       // hamper.getVendor().setId(1L);
        // hamper.getVendor().setName("MAKRO");
-        customerHamper.setHamper(hamper);
-        customer.getCustomerHampers().add(customerHamper);
+        //customerHamper.setHamper(hamper);
+        //customer.getCustomerHampers().add(customerHamper);
 
 
 

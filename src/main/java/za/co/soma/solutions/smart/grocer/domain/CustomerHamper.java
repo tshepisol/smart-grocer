@@ -3,17 +3,23 @@ package za.co.soma.solutions.smart.grocer.domain;
 import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "CUSTOMER_HAMPER")
 @DynamicUpdate
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = CustomerHamper.class, property = "id")
+@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
 public class CustomerHamper implements Serializable {
 
     @Id
@@ -31,8 +37,12 @@ public class CustomerHamper implements Serializable {
     @NotNull(message = "Hamper required - CustomerHamper mapping")
     @ManyToOne
     @JoinColumn(name = "HAMPER_ID")
-   // @JsonBackReference
     private Hamper hamper;
+
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
 
     @Enumerated(EnumType.STRING)
     private PaymentStatusType paymentStatus;
@@ -42,6 +52,8 @@ public class CustomerHamper implements Serializable {
     private boolean hamperClaimed;
 
     @NaturalId
+    @Column(nullable = false, updatable = false)
+    @NotNull(message = "Hamper Reference cannot be null", groups = Default.class)
     private String hamperReference;
 
     private String paymentCycle;
@@ -72,6 +84,14 @@ public class CustomerHamper implements Serializable {
 
     public void setHamper(Hamper hamper) {
         this.hamper = hamper;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public PaymentStatusType getPaymentStatus() {
@@ -120,5 +140,20 @@ public class CustomerHamper implements Serializable {
 
     public void setPaymentHistories(List<PaymentHistory> paymentHistories) {
         this.paymentHistories = paymentHistories;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerHamper{" +
+                "id=" + id +
+                ", hamper=" + hamper +
+                ", createdAt=" + createdAt +
+                ", paymentStatus=" + paymentStatus +
+                ", paymentComplete=" + paymentComplete +
+                ", hamperClaimed=" + hamperClaimed +
+                ", hamperReference='" + hamperReference + '\'' +
+                ", paymentCycle='" + paymentCycle + '\'' +
+                ", paymentHistories=" + paymentHistories +
+                '}';
     }
 }

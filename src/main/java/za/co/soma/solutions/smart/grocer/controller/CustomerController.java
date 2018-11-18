@@ -9,15 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.co.soma.solutions.smart.grocer.Service.CustomerService;
+import za.co.soma.solutions.smart.grocer.Service.HamperGeneratorService;
 import za.co.soma.solutions.smart.grocer.Service.SomaValidation;
 import za.co.soma.solutions.smart.grocer.domain.Customer;
 import za.co.soma.solutions.smart.grocer.exception.GrocerErrorType;
 
-import javax.validation.Valid;
-import javax.validation.Validator;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -29,8 +27,9 @@ public class CustomerController implements SomaValidation {
     @Autowired
     CustomerService customerService;
 
+
     @Autowired
-    Validator validator;
+    HamperGeneratorService hamperGeneratorService;
 
 
 
@@ -102,6 +101,7 @@ public class CustomerController implements SomaValidation {
             return new ResponseEntity(new GrocerErrorType("Unable to update. customer doesnt exist: "+ customer), HttpStatus.OK);
         }
 
+        hamperGeneratorService.createCustomerHamperReference(customer.getCustomerHampers());
         customer = customerService.update(customer);
 
         return new ResponseEntity(customer, HttpStatus.OK);

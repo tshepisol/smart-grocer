@@ -65,7 +65,10 @@ public class RegisterController implements SomaValidation {
             return new ResponseEntity(grocerErrorType, HttpStatus.OK);
         }
 
+        hamperGeneratorService.createCustomerHamperReference(customer.getCustomerHampers());
+
         customer = customerService.create(customer);
+
 
         return new ResponseEntity(customer, HttpStatus.OK);
     }
@@ -74,6 +77,9 @@ public class RegisterController implements SomaValidation {
     @PutMapping("/register/hamper")
     @PostMapping("/register/hamper")
     public ResponseEntity<?> registerHamper(@RequestBody String payload){
+
+
+        log.info("Create hamper payload:"+payload);
 
 
         Customer customer = null;
@@ -85,7 +91,7 @@ public class RegisterController implements SomaValidation {
             return new ResponseEntity(new GrocerErrorType("Transformation error"+ e.getMessage()), HttpStatus.OK);
         }
 
-        log.info("creating customer hamper: {}", customer);
+        log.info("CREATING customer hamper: {}", customer);
 
        if(customer.getId() == null && customer.getCustomerNo() == null){
             log.warn("customer id or no cannot be NULL: {}", customer);
@@ -98,12 +104,16 @@ public class RegisterController implements SomaValidation {
             return new ResponseEntity(grocerErrorType, HttpStatus.OK);
         }
 
+        hamperGeneratorService.createCustomerHamperReference(customer.getCustomerHampers());
+        customer.setOnboardComplete(true);
         customer = customerService.createCustomerHamper(customer);
 
-        hamperGeneratorService.createCustomerHamper(customer.getCustomerHampers());
-        customer.setOnboardComplete(true);
+
+        log.info("customer hamper CREATED: {}", customer);
 
 
+
+        // customerService.update(customer);
 
 
         return new ResponseEntity(customer, HttpStatus.OK);

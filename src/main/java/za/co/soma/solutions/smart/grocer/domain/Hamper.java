@@ -125,4 +125,19 @@ public class Hamper {
     public void setCustomerHampers(List<CustomerHamper> customerHampers) {
         this.customerHampers = customerHampers;
     }*/
+
+    @Override
+    public String toString() {
+        return "Hamper{" +
+                "id=" + id +
+                ", productCode='" + productCode + '\'' +
+                ", name='" + name + '\'' +
+                ", category=" + category +
+                ", brand='" + brand + '\'' +
+                ", quantity=" + quantity +
+                ", unitMeasure=" + unitMeasure +
+                ", price=" + price +
+                ", vendor=" + vendor +
+                '}';
+    }
 }

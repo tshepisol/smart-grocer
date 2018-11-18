@@ -1,0 +1,77 @@
+{
+  "@id": "66842ef9-1d30-4b1d-a69e-d62649bfc39b",
+  "id": 1,
+  "customerNo": "SS2",
+  "firstName": "HAMPER",
+  "lastName": "MANDLA",
+  "emailAddress": null,
+  "customerReferral": null,
+  "user": {
+    "id": 1,
+    "username": "mylogin",
+    "password": "$2a$10$4s0ZwNuOZ1xsaxeju2s8bu2u6AUdC83dJWJWIw6Z/Hfr7Dta5jT8q",
+    "retryCount": 0,
+    "locked": false,
+    "customer": "66842ef9-1d30-4b1d-a69e-d62649bfc39b",
+    "createAt": "2018-11-14T20:05:33.271+0000",
+    "lastLogin": null,
+    "roles": [
+      {
+        "id": 1,
+        "roleName": "CUSTOMER",
+        "description": null
+      }
+    ]
+  },
+  "partner": null,
+  "customerContacts": [
+    {
+      "id": 1,
+      "number": "0795262301",
+      "contactType": "MOBILE"
+    }
+  ],
+  "customerAddresses": [
+    {
+      "id": 1,
+      "number": "13",
+      "streetName": "draaibos Cresent",
+      "town": "soshanguve North",
+      "province": null,
+      "postalCode": "0182",
+      "addressType": "POSTAL",
+      "billing": null
+    }
+  ],
+  "customerHampers": [
+    {
+      "id": null,
+      "customer": "66842ef9-1d30-4b1d-a69e-d62649bfc39b",
+      "hamper": {
+        "id": 1
+      },
+      "paymentStatus": null,
+      "paymentComplete": false,
+      "hamperClaimed": false,
+      "hamperReference": null,
+      "paymentCycle": null,
+      "paymentHistories": null
+    }
+  ],
+  "bankDetails": [
+    {
+      "accountNumber": 41432919,
+      "bank": "FNB",
+      "branchCode": 2,
+      "debitDate": 20,
+      "accountType": "CHEQUE",
+      "paymentHistoryList": [
+
+      ]
+    }
+  ],
+  "cardDetails": [
+
+  ],
+  "idNumber": "9003165495086"
+}

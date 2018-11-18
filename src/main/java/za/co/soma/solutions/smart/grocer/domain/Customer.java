@@ -216,4 +216,25 @@ public class Customer {
     public void setOnboardComplete(boolean onboardComplete) {
         this.onboardComplete = onboardComplete;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", customerNo='" + customerNo + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", IdNumber='" + IdNumber + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", customerReferral=" + customerReferral +
+                ", user=" + user +
+                ", partner=" + partner +
+                ", customerContacts=" + customerContacts +
+                ", customerAddresses=" + customerAddresses +
+                ", customerHampers=" + customerHampers +
+                ", bankDetails=" + bankDetails +
+                ", cardDetails=" + cardDetails +
+                ", onboardComplete=" + onboardComplete +
+                '}';
+    }
 }
